@@ -1,4 +1,3 @@
-
 class MusicPlayer
   MUSIC_PLAYERS = []
 
