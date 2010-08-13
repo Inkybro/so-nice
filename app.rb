@@ -6,8 +6,6 @@ require 'haml'
 require 'lib/player'
 Dir[File.dirname(__FILE__) + '/lib/players/*'].each { |f| require f }
 
-enable :inline_templates
-
 configure do
   $player = MusicPlayer.launched or abort "Error: no music player launched!"
 end
