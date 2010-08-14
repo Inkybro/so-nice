@@ -6,7 +6,7 @@ require 'haml'
 require 'lib/musicplayer'
 require 'lib/videoplayer'
 Dir[File.dirname(__FILE__) + '/lib/players/*'].each { |f| require f }
-$video_path = '/Users/davidpick/mythbox/*'
+$video_path = '/Users/*'
 
 configure do
   $musicplayer = MusicPlayer.launched or abort "Error: no music player launched!"
@@ -25,7 +25,14 @@ get '/music' do
 end
 
 get '/videos' do
-  @videos = Dir[$video_path]
+  @videos = []
+  temp = Dir.glob($video_path, File::FNM_DOTMATCH)
+  temp.sort!
+  temp.each do |video|
+    if !(video =~ /.*\.nfo/ or video =~ /.*\.tbn/ or video =~ /.*\.jpg/)
+      @videos << video
+    end
+  end
   haml :videos
 end
 
