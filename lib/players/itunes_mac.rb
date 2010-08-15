@@ -28,7 +28,7 @@ class ItunesPlayer_MacOSX < MusicPlayer
   end
 
   def launched?
-    %x(osascript -e 'tell app "System Events" to count (every process whose name is "iTunes")')
+    %x(osascript -e 'tell app "System Events" to count (every process whose name is "#{name}")')
   end
 
   def name
@@ -37,6 +37,6 @@ class ItunesPlayer_MacOSX < MusicPlayer
 
   private
   def tell_to(command)
-    %x(osascript -e 'tell app "iTunes" to #{command}')
+    %x(osascript -e 'tell app "#{name}" to #{command}')
   end
 end
