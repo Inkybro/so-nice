@@ -21,7 +21,6 @@ class MusicPlayer
     MUSIC_PLAYERS.find { |player| player.launched? }
   end
 
-
   def current_artist; end
   def current_album; end
 end

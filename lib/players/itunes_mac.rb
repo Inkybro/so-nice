@@ -28,8 +28,7 @@ class ItunesPlayer_MacOSX < MusicPlayer
   end
 
   def launched?
-    %x(osascript -e 'tell app "Itunes" to return name of current track' 2>/dev/null)
-    $? == 0
+    %x(osascript -e 'tell app "System Events" to count (every process whose name is "iTunes")' 2>/dev/null).rstrip
   end
 
   def name
