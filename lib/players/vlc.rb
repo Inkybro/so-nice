@@ -16,12 +16,12 @@ class Vlc < VideoPlayer
   end
 
   def launched?
-    %x(osascript -e 'tell app "System Events" to count (every process whose name is "vlc")' 2>/dev/null).rstrip
+    %x(osascript -e 'tell app "System Events" to count (every process whose name is "vlc")')
   end
 
   private
   def vlc(command)
-    %x(osascript -e 'tell app "vlc" to #{command}').rstrip
+    %x(osascript -e 'tell app "vlc" to #{command}')
     %x(osascript -e 'tell app "vlc" to activate')
   end
 end
