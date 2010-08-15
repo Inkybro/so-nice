@@ -23,5 +23,6 @@ class Vlc < VideoPlayer
   private
   def vlc(command)
     %x(osascript -e 'tell app "vlc" to #{command}').rstrip
+    %x(osascript -e 'tell app "vlc" to activate')
   end
 end

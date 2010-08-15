@@ -15,7 +15,7 @@
     - if @album
       %h2= @album
 
-    %form{:method => 'post', :action => 'player'}
+    %form{:method => 'post', :action => 'musicplayer'}
       %p
         %input{:type=>'submit', :value => '▸', :name=>'playpause', :title => "Play/Pause"}
         %input{:type=>'submit', :value => '←', :name=>'prev',      :title => "Previous"}

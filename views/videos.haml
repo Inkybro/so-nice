@@ -10,4 +10,4 @@
       %input{:type => 'submit', :value => 'stop', :name => 'stop', :title => "Stop"}
     -@videos.each do |video|
       %form{:method => 'post', :action => 'videoplayer'}
-        %input{:type => 'submit', :value => video, :name => 'play_file', :title => "play file"}
+        %input{:type => 'submit', :value => %x{pwd}.rstrip + '/' + video, :name => 'play_file', :title => "play file"}

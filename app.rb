@@ -6,7 +6,6 @@ require 'haml'
 require 'lib/musicplayer'
 require 'lib/videoplayer'
 Dir[File.dirname(__FILE__) + '/lib/players/*'].each { |f| require f }
-$video_path = '/Users/*'
 
 configure do
   $musicplayer = MusicPlayer.launched or abort "Error: no music player launched!"
@@ -25,18 +24,14 @@ get '/music' do
 end
 
 get '/videos' do
-  @videos = []
-  temp = Dir.glob($video_path, File::FNM_DOTMATCH)
-  temp.sort!
-  temp.each do |video|
-    if !(video =~ /.*\.nfo/ or video =~ /.*\.tbn/ or video =~ /.*\.jpg/)
-      @videos << video
-    end
-  end
+  @videos = Dir.glob('*').select { |fn| File.directory?(fn) } 
+  Dir.glob('*.avi').each { |file| @videos << file }
+  @videos << ".."
+  @videos.sort!
   haml :videos
 end
 
-post '/player' do
+post '/musicplayer' do
   params.each { |k, v| $musicplayer.send(k) if $musicplayer.respond_to?(k) }
   redirect '/music'
 end
@@ -45,10 +40,9 @@ post '/videoplayer' do
   params.each do |k, v|
     if k == "play_file"
       if File.directory?(v)
-        $video_path = v + '/*'
+        Dir.chdir(v)
         redirect '/videos'
       else
-        puts "v = " + v
         $videoplayer.send(k, v)
       end
     else
