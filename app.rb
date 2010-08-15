@@ -24,7 +24,7 @@ get '/music' do
 end
 
 get '/videos' do
-  @videos = Dir.glob('*').select { |fn| File.directory?(fn) } 
+  @videos = Dir.glob('*').select { |file| File.directory?(file) } 
   Dir.glob('*.avi').each { |file| @videos << file }
   @videos << ".."
   @videos.sort!
@@ -51,4 +51,3 @@ post '/videoplayer' do
   end
   redirect '/videos'
 end
-
